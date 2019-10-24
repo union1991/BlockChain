@@ -1,0 +1,55 @@
+geth init genesis.json  (초기화)
+
+geth --nodiscover --rpc --rpcport 8545 --allow-insecure-unlock --rpcaddr "0.0.0.0" --rpccorsdomain "*" --rpcapi "admin,db,eth,miner,personal,web3,net,txpool" console 2>> eth.log
+
+> personal.newAccount("eth")	(계정 생성)
+
+> eth.accounts[0]	(계정의 넘버)
+
+> eth.blockNumber
+
+> eth.hashrate
+
+> eth.coinbase	(계좌번호로 정해진 계좌 확인)
+
+> miner.setEtherbase(eth.accounts[1])
+
+> eth.getBalance(eth.accounts[0])	1eth = 10^18 Wei
+
+> eth.sendTransaction({from: eth.accounts[1], to: eth.accounts[2], value: web3.toWei(10, "ether")})
+
+> personal.unlockAccount(eth.accounts[0], "eth")	(계정 언락)
+
+> eth.pendingTransactions
+
+> eth.getBalance(eth.accounts[1])
+
+> miner.start()
+
+> miner.stop()
+
+> web3.fromWei(eth.getBalance(eth.accounts[1]), "ether") 
+
+> eth.getTransaction("0x681001dab2665fb128adff42c83470bc9eae9249e4d963dbc0071a4e22fa8fd7")
+
+> eth.getBlock(1230)
+
+## 멀티 노드 구성
+>admin.nodeInfo.enode
+"enode://442bdb0a9a0aad7d6e3f48346c1f0afa32925b5001c0b36a959881a122a6023c59bc0c6c5a29301a0a940645f43b09b273ff92812cd83b0d2f7ba6ba6ff10e51@0.0.0.0:30303"
+
+$ geth --datadir "p1" --port 30301 --networkid 15 --ipcdisable console 
+$ geth --datadir "p2" --port 30302 --networkid 15 --ipcdisable console 
+$ geth --datadir "p3" --port 30303 --networkid 15 --ipcdisable console 
+
+> admin.addPeer("enode://8f288e577053333c49a6ae4728e117be06e6dc39243400af69439bcfbffc2500fd3c08568772c0c01accadb193fe9c3f29336dc2a08c19c9a1e4d111b017edab@0.0.0.0:30301")
+> net.peerCount
+> admin.peers
+> personal.newAccount(“eth”)
+
+> eth.sendTransaction({from: eth.coinbase, to: "0x032875e095dc9319c2750db2a324209c765dee71", value: web3.toWei(1, "ether")})
+
+
+
+
+contact0.valanceOf(eth.accounts[1])
